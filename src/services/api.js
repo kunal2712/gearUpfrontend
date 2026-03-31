@@ -1,6 +1,6 @@
  import axios from 'axios';
 
- const API_BASE_URL = 'http://localhost:8081/gearup'; 
+ const API_BASE_URL = 'https://gearup-sage.vercel.app/gearup'; 
 
  export const registerUser = async (userData) => {
      try {
