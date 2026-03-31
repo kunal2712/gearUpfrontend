@@ -1,38 +1,680 @@
-.App {
-  text-align: center;
+/* app.css - Updated Styles with Reduced Padding and Improved Category Heading */
+ .app-container {
+     display: flex;
+     flex-direction: column;
+     min-height: 100vh;
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+     background-color: #f4f4f4;
+     margin: 0;
+     padding: 0;
+ }
+
+ /* Updated Navbar Styles */
+ .navbar {
+     background-color: #333; /* Dark background */
+     color: white;
+     padding: 15px 30px; /* Slightly reduced top/bottom padding */
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+ }
+
+ .logo {
+     margin: 0;
+     font-size: 2em; /* Larger logo text */
+     font-weight: bold; /* Make the logo stand out */
+     letter-spacing: 0.5px; /* Improve readability */
+ }
+
+ .navbar h2 {
+     color: #ddd; /* Slightly lighter secondary text */
+     font-size: 1.2em;
+     font-weight: 400;
+     margin: 0;
+ }
+
+ .auth-buttons {
+     display: flex;
+     align-items: center;
+ }
+
+ .auth-button {
+     background-color: #007bff; /* Primary blue color */
+     color: white;
+     border: none;
+     padding: 10px 15px; /* Slightly reduced vertical padding */
+     margin-left: 10px; /* Slightly reduced left margin */
+     border-radius: 8px; /* More rounded buttons */
+     cursor: pointer;
+     font-size: 1em;
+     transition: background-color 0.3s ease-in-out; /* Smooth hover transition */
+ }
+
+ .auth-button:hover {
+     background-color: #0056b3; /* Darker shade on hover */
+ }
+
+ .logout-button {
+     background-color: #dc3545; /* Red color for logout */
+ }
+
+ .logout-button:hover {
+     background-color: #c82333;
+ }
+
+ .username {
+     margin-right: 15px; /* Slightly reduced right margin */
+     font-size: 1.1em;
+     color: #eee; /* Light text for username */
+ }
+
+ /* Updated Footer Styles */
+ .app-footer {
+     background-color: #333; /* Dark background matching header */
+     color: #eee; /* Light text color */
+     text-align: center;
+     padding: 15px; /* Slightly reduced padding */
+     font-size: 0.9em;
+     border-top: 1px solid #555; /* Subtle top border to separate from content */
+ }
+
+ .app-footer p {
+     margin: 0; /* Remove default paragraph margins */
+     font-weight: 300; /* Lighter font weight for a softer look */
+ }
+
+ .app-footer a {
+     color: #007bff; /* Primary blue for links in footer */
+     text-decoration: none;
+     transition: color 0.3s ease-in-out;
+ }
+
+ .app-footer a:hover {
+     color: #0056b3; /* Darker blue on hover */
+     text-decoration: underline; /* Subtle indication of link on hover */
+ }
+
+ /* Updated Auth Modal and Form Styles (Keeping other styles) */
+ .auth-modal-overlay {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background-color: rgba(0, 0, 0, 0.6); /* Slightly darker overlay */
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     z-index: 1000;
+ }
+
+ .auth-modal-content {
+     background-color: #fff;
+     padding: 30px; /* Slightly reduced padding */
+     border-radius: 12px; /* More rounded corners */
+     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* More pronounced shadow */
+     position: relative;
+     width: 400px; /* Slightly reduced width */
+     max-width: 95%;
+ }
+
+ .close-button {
+     position: absolute;
+     top: 10px; /* Slightly adjusted position */
+     right: 10px; /* Slightly adjusted position */
+     background: none;
+     border: none;
+     font-size: 1.5em; /* Slightly reduced size */
+     cursor: pointer;
+     color: #6c757d; /* Muted close button color */
+     transition: color 0.2s ease-in-out;
+ }
+
+ .close-button:hover {
+     color: #343a40; /* Darker on hover */
+ }
+
+ .toggle-auth-button {
+     background-color: #007bff;
+     color: white;
+     border: none;
+     padding: 10px 15px; /* Slightly reduced padding */
+     border-radius: 8px; /* More rounded */
+     cursor: pointer;
+     font-size: 1em;
+     margin-top: 20px; /* Slightly reduced margin */
+     width: 100%;
+     transition: background-color 0.3s ease-in-out;
+ }
+
+ .toggle-auth-button:hover {
+     background-color: #0056b3;
+ }
+
+ /* Updated Form Styles (Login & Registration) */
+ .login-form,
+ .registration-form {
+     display: flex;
+     flex-direction: column;
+ }
+
+ .login-form h2,
+ .registration-form h2 {
+     text-align: center;
+     margin-bottom: 25px; /* Slightly reduced margin */
+     color: #343a40; /* Darker heading */
+     font-size: 1.6em; /* Slightly reduced size */
+     font-weight: 500;
+ }
+
+ .form-group {
+     margin-bottom: 15px; /* Slightly reduced margin */
+ }
+
+ .form-group label {
+     display: block;
+     margin-bottom: 6px; /* Slightly reduced margin */
+     color: #495057; /* Darker label */
+     font-size: 0.95em; /* Slightly reduced size */
+     font-weight: 400;
+ }
+
+ .form-group input[type="text"],
+ .form-group input[type="password"],
+ .form-group input[type="email"] {
+     width: 100%;
+     padding: 10px; /* Slightly reduced padding */
+     border: 1px solid #ced4da; /* Lighter border */
+     border-radius: 6px; /* More rounded input fields */
+     font-size: 0.95em; /* Slightly reduced size */
+     box-sizing: border-box;
+     transition: border-color 0.2s ease-in-out;
+ }
+
+ .form-group input:focus {
+     border-color: #007bff;
+     outline: none;
+     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Subtle focus effect */
+ }
+
+ .login-form button,
+ .registration-form button {
+     padding: 10px 15px; /* Slightly reduced padding */
+     border-radius: 8px; /* More rounded buttons */
+     cursor: pointer;
+     font-size: 1em; /* Slightly reduced size */
+     margin-top: 10px; /* Slightly reduced margin */
+     border: none;
+     transition: opacity 0.2s ease-in-out;
+ }
+
+ .login-form button:hover,
+ .registration-form button:hover {
+     opacity: 0.9;
+ }
+
+ .submit-button {
+     background-color: #28a745; /* Green submit button */
+     color: white;
+ }
+
+ .submit-button:hover {
+     background-color: #1e7e34;
+ }
+
+ .cancel-button {
+     background-color: #6c757d;
+     color: white;
+     margin-left: 10px; /* Slightly reduced margin */
+ }
+
+ .cancel-button:hover {
+     background-color: #5a6268;
+ }
+
+ /* Updated Success Popup */
+ .success-popup {
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     background-color: #fff;
+     padding: 25px; /* Slightly reduced padding */
+     border: 1px solid #d1e7dd; /* Light green border */
+     border-radius: 10px; /* More rounded */
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     text-align: center;
+ }
+
+ .success-popup p {
+     margin-bottom: 15px; /* Slightly reduced margin */
+     font-weight: bold;
+     color: #155724; /* Dark green text */
+     font-size: 1em; /* Slightly reduced size */
+ }
+
+ .success-popup button {
+     background-color: #28a745; /* Green button */
+     color: white;
+     border: none;
+     border-radius: 6px; /* More rounded */
+     cursor: pointer;
+     padding: 8px 12px; /* Slightly reduced padding */
+     margin-top: 10px; /* Slightly reduced margin */
+     transition: background-color 0.2s ease-in-out;
+ }
+
+ .success-popup button:hover {
+     background-color: #1e7e34;
+ }
+
+
+ /* HomePage.css - Elegant and Professional Styles with Reduced Padding and Improved Heading */
+
+ .home-page {
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     margin: 15px auto; /* Reduced top/bottom margin */
+     padding: 25px; /* Reduced padding */
+     background-color: #fff;
+     border-radius: 12px;
+     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+ }
+
+ /* Category Navbar */
+ .category-navbar {
+     background-color: #f8f9fa;
+     color: #495057;
+     padding: 10px 0; /* Reduced padding */
+     margin-bottom: 20px; /* Reduced margin */
+     border-bottom: 1px solid #e9ecef;
+ }
+
+ .category-list {
+     list-style: none;
+     padding: 0;
+     margin: 0 auto;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     max-width: 1200px;
+ }
+
+ .category-item {
+     padding: 0 15px; /* Reduced padding */
+ }
+
+ .category-item button {
+     background: none;
+     border: none;
+     color: #495057;
+     font-size: 0.95em; /* Slightly reduced font size */
+     cursor: pointer;
+     transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+     padding: 6px 10px; /* Reduced button padding */
+     border-radius: 6px;
+ }
+
+ .category-item button:hover {
+     color: #007bff;
+     background-color: #e9ecef;
+ }
+
+ .category-item button.active {
+     color: #fff;
+     background-color: #007bff;
+ }
+
+ /* Product Section */
+ .product-section {
+     max-width: 1200px;
+     margin: 0 auto;
+     padding: 15px 0; /* Reduced padding */
+ }
+
+ .product-section h2 {
+     color: #343a40;
+     margin-bottom: 20px; /* Reduced margin */
+     text-align: center;
+     font-size: 1.8em; /* Slightly reduced font size */
+     font-weight: 600; /* Slightly bolder */
+     letter-spacing: 0.8px; /* Improve readability */
+     text-transform: uppercase; /* Make it stand out */
+     opacity: 0.9; /* Slightly reduce opacity for a subtle effect */
+ }
+
+ .product-grid {
+     display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Slightly reduced min width */
+     gap: 25px; /* Reduced gap */
+ }
+
+ /* Product Card */
+ .product-card {
+     background-color: #fff;
+     border: 1px solid #e9ecef;
+     border-radius: 10px;
+     padding: 15px; /* Reduced padding */
+     text-align: center;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+     transition: transform 0.2s ease-in-out;
+ }
+
+ .product-card:hover {
+     transform: translateY(-3px); /* Reduced lift */
+ }
+
+ .product-image {
+     max-width: 100%;
+     height: auto;
+     margin-bottom: 10px; /* Reduced margin */
+     border-radius: 8px;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+ }
+
+ .product-name {
+     color: #343a40;
+     margin-top: 0;
+     margin-bottom: 8px; /* Reduced margin */
+     font-size: 1.1em; /* Reduced font size */
+     font-weight: 500;
+ }
+
+ .product-price {
+     color: #28a745;
+     font-weight: bold;
+     margin-bottom: 12px; /* Reduced margin */
+     font-size: 1em; /* Reduced font size */
+ }
+
+ .product-description {
+     color: #6c757d;
+     font-size: 0.9em; /* Reduced font size */
+     margin-bottom: 15px; /* Reduced margin */
+     line-height: 1.4; /* Slightly tighter line height */
+ }
+
+ .view-details-button {
+     background-color: #0d62bd;
+     color: rgb(11, 11, 11);
+     border: none;
+     padding: 8px 15px; /* Reduced padding */
+     border-radius: 8px;
+     cursor: pointer;
+     font-size: 0.9em; /* Reduced font size */
+     transition: background-color 0.3s ease-in-out;
+ }
+
+ .view-details-button:hover {
+     background-color: #0056b3;
+ }
+
+ /* Loading and Error States */
+ .loading-container,
+ .error-container {
+     text-align: center;
+     padding: 20px; /* Reduced padding */
+     font-style: italic;
+     color: #6c757d;
+     border-radius: 8px;
+     background-color: #f8f9fa;
+     border: 1px solid #e9ecef;
+ }
+
+ .error-container {
+     color: #dc3545;
+     font-weight: bold;
+ }
+
+/* General Layout */
+.app-container {
+  padding: 0 10px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  flex-wrap: wrap; /* Allows items to wrap on tiny screens */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* Mobile Specific Adjustments */
+@media (max-width: 768px) {
+  .navbar h1 {
+    font-size: 1.5rem;
+  }
+  
+  .navbar h2 {
+    display: none; /* Hide subtitle on mobile to save space */
+  }
+
+  .auth-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+  }
+
+  /* Make product grids stack vertically */
+  .product-grid {
+    grid-template-columns: 1fr !important; 
+  }
+  
+  /* Cart Table responsive fix */
+  .cart-table-container {
+    overflow-x: auto; /* Adds horizontal scroll to table if it's too wide */
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Home Page Layout */
+.home-page {
+  padding: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Category Navbar: Scrollable on Mobile */
+.category-navbar {
+  background: #f8f9fa;
+  padding: 10px 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.category-list {
+  display: flex;
+  list-style: none;
+  padding: 0 10px;
+  margin: 0;
+  overflow-x: auto; /* Enable horizontal scroll */
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+.category-list::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for clean look */
+}
+
+.category-item button {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 8px 15px;
+  margin-right: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.category-item button.active-cat {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+/* Product Grid: Responsive Columns */
+.product-grid {
+  display: grid;
+  gap: 20px;
+  /* Default: 4 columns on Desktop */
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.product-card {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background: white;
+  transition: transform 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.product-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.product-actions {
+  display: flex;
+  margin-top: auto;
+  gap: 5px;
+}
+
+.add-to-cart-button {
+  background-color: #28a745;
+  color: white;
+  flex: 2;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.view-details-button {
+  background-color: #f0f0f0;
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Responsive Breakpoints */
+
+/* Tablet: 2 or 3 columns */
+@media (max-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Mobile: 1 or 2 columns */
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 items per row */
+    gap: 10px;
+  }
+  
+  .product-card {
+    padding: 10px;
+  }
+
+  .product-image {
+    height: 150px;
+  }
+
+  .product-name {
+    font-size: 1rem;
+  }
+}
+
+/* Very Small Phones: 1 column */
+@media (max-width: 480px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .toast-notification {
+    left: 20px;
+    right: 20px;
+    text-align: center;
+  }
+}
+
+/* Toast Styles */
+.toast-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #28a745;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 1000;
+  font-weight: bold;
+}
+
+/* The container that stays at the top */
+.category-navbar {
+  width: 100%;
+  overflow: hidden; /* Prevent the whole page from shaking */
+  background-color: #fff;
+  border-bottom: 1px solid #eaeaea;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* The actual list of buttons */
+.category-list {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  overflow-y: hidden;
+  white-space: nowrap; /* Keep buttons in one line */
+  padding: 10px 5px;
+  margin: 0;
+  list-style: none;
+  
+  /* Modern scroll behavior */
+  -webkit-overflow-scrolling: touch; 
+  scroll-snap-type: x mandatory; 
+}
+
+/* Hide the scrollbar for a cleaner look (optional) */
+.category-list::-webkit-scrollbar {
+  display: none;
+}
+
+.category-item {
+  flex: 0 0 auto; /* Prevent buttons from shrinking */
+  scroll-snap-align: start;
+  margin: 0 5px;
+}
+
+.category-item button {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.category-item button:hover {
+  background: #007bff;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
