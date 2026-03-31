@@ -1,6 +1,6 @@
  import axios from 'axios';
 
- const API_BASE_URL = 'https://gearup-sage.vercel.app/gearup'; 
+ const API_BASE_URL = 'https://gearupbackend-g1a3.onrender.com/gearup'; 
 
  export const registerUser = async (userData) => {
      try {
