@@ -1,680 +1,463 @@
-/* app.css - Updated Styles with Reduced Padding and Improved Category Heading */
- .app-container {
-     display: flex;
-     flex-direction: column;
-     min-height: 100vh;
-     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
-     background-color: #f4f4f4;
-     margin: 0;
-     padding: 0;
- }
-
- /* Updated Navbar Styles */
- .navbar {
-     background-color: #333; /* Dark background */
-     color: white;
-     padding: 15px 30px; /* Slightly reduced top/bottom padding */
-     display: flex;
-     justify-content: space-between;
-     align-items: center;
-     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
- }
-
- .logo {
-     margin: 0;
-     font-size: 2em; /* Larger logo text */
-     font-weight: bold; /* Make the logo stand out */
-     letter-spacing: 0.5px; /* Improve readability */
- }
-
- .navbar h2 {
-     color: #ddd; /* Slightly lighter secondary text */
-     font-size: 1.2em;
-     font-weight: 400;
-     margin: 0;
- }
-
- .auth-buttons {
-     display: flex;
-     align-items: center;
- }
-
- .auth-button {
-     background-color: #007bff; /* Primary blue color */
-     color: white;
-     border: none;
-     padding: 10px 15px; /* Slightly reduced vertical padding */
-     margin-left: 10px; /* Slightly reduced left margin */
-     border-radius: 8px; /* More rounded buttons */
-     cursor: pointer;
-     font-size: 1em;
-     transition: background-color 0.3s ease-in-out; /* Smooth hover transition */
- }
-
- .auth-button:hover {
-     background-color: #0056b3; /* Darker shade on hover */
- }
-
- .logout-button {
-     background-color: #dc3545; /* Red color for logout */
- }
-
- .logout-button:hover {
-     background-color: #c82333;
- }
-
- .username {
-     margin-right: 15px; /* Slightly reduced right margin */
-     font-size: 1.1em;
-     color: #eee; /* Light text for username */
- }
-
- /* Updated Footer Styles */
- .app-footer {
-     background-color: #333; /* Dark background matching header */
-     color: #eee; /* Light text color */
-     text-align: center;
-     padding: 15px; /* Slightly reduced padding */
-     font-size: 0.9em;
-     border-top: 1px solid #555; /* Subtle top border to separate from content */
- }
-
- .app-footer p {
-     margin: 0; /* Remove default paragraph margins */
-     font-weight: 300; /* Lighter font weight for a softer look */
- }
-
- .app-footer a {
-     color: #007bff; /* Primary blue for links in footer */
-     text-decoration: none;
-     transition: color 0.3s ease-in-out;
- }
-
- .app-footer a:hover {
-     color: #0056b3; /* Darker blue on hover */
-     text-decoration: underline; /* Subtle indication of link on hover */
- }
-
- /* Updated Auth Modal and Form Styles (Keeping other styles) */
- .auth-modal-overlay {
-     position: fixed;
-     top: 0;
-     left: 0;
-     width: 100%;
-     height: 100%;
-     background-color: rgba(0, 0, 0, 0.6); /* Slightly darker overlay */
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     z-index: 1000;
- }
-
- .auth-modal-content {
-     background-color: #fff;
-     padding: 30px; /* Slightly reduced padding */
-     border-radius: 12px; /* More rounded corners */
-     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* More pronounced shadow */
-     position: relative;
-     width: 400px; /* Slightly reduced width */
-     max-width: 95%;
- }
-
- .close-button {
-     position: absolute;
-     top: 10px; /* Slightly adjusted position */
-     right: 10px; /* Slightly adjusted position */
-     background: none;
-     border: none;
-     font-size: 1.5em; /* Slightly reduced size */
-     cursor: pointer;
-     color: #6c757d; /* Muted close button color */
-     transition: color 0.2s ease-in-out;
- }
-
- .close-button:hover {
-     color: #343a40; /* Darker on hover */
- }
-
- .toggle-auth-button {
-     background-color: #007bff;
-     color: white;
-     border: none;
-     padding: 10px 15px; /* Slightly reduced padding */
-     border-radius: 8px; /* More rounded */
-     cursor: pointer;
-     font-size: 1em;
-     margin-top: 20px; /* Slightly reduced margin */
-     width: 100%;
-     transition: background-color 0.3s ease-in-out;
- }
-
- .toggle-auth-button:hover {
-     background-color: #0056b3;
- }
-
- /* Updated Form Styles (Login & Registration) */
- .login-form,
- .registration-form {
-     display: flex;
-     flex-direction: column;
- }
-
- .login-form h2,
- .registration-form h2 {
-     text-align: center;
-     margin-bottom: 25px; /* Slightly reduced margin */
-     color: #343a40; /* Darker heading */
-     font-size: 1.6em; /* Slightly reduced size */
-     font-weight: 500;
- }
-
- .form-group {
-     margin-bottom: 15px; /* Slightly reduced margin */
- }
-
- .form-group label {
-     display: block;
-     margin-bottom: 6px; /* Slightly reduced margin */
-     color: #495057; /* Darker label */
-     font-size: 0.95em; /* Slightly reduced size */
-     font-weight: 400;
- }
-
- .form-group input[type="text"],
- .form-group input[type="password"],
- .form-group input[type="email"] {
-     width: 100%;
-     padding: 10px; /* Slightly reduced padding */
-     border: 1px solid #ced4da; /* Lighter border */
-     border-radius: 6px; /* More rounded input fields */
-     font-size: 0.95em; /* Slightly reduced size */
-     box-sizing: border-box;
-     transition: border-color 0.2s ease-in-out;
- }
-
- .form-group input:focus {
-     border-color: #007bff;
-     outline: none;
-     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Subtle focus effect */
- }
-
- .login-form button,
- .registration-form button {
-     padding: 10px 15px; /* Slightly reduced padding */
-     border-radius: 8px; /* More rounded buttons */
-     cursor: pointer;
-     font-size: 1em; /* Slightly reduced size */
-     margin-top: 10px; /* Slightly reduced margin */
-     border: none;
-     transition: opacity 0.2s ease-in-out;
- }
-
- .login-form button:hover,
- .registration-form button:hover {
-     opacity: 0.9;
- }
-
- .submit-button {
-     background-color: #28a745; /* Green submit button */
-     color: white;
- }
-
- .submit-button:hover {
-     background-color: #1e7e34;
- }
-
- .cancel-button {
-     background-color: #6c757d;
-     color: white;
-     margin-left: 10px; /* Slightly reduced margin */
- }
-
- .cancel-button:hover {
-     background-color: #5a6268;
- }
-
- /* Updated Success Popup */
- .success-popup {
-     position: absolute;
-     top: 50%;
-     left: 50%;
-     transform: translate(-50%, -50%);
-     background-color: #fff;
-     padding: 25px; /* Slightly reduced padding */
-     border: 1px solid #d1e7dd; /* Light green border */
-     border-radius: 10px; /* More rounded */
-     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-     text-align: center;
- }
-
- .success-popup p {
-     margin-bottom: 15px; /* Slightly reduced margin */
-     font-weight: bold;
-     color: #155724; /* Dark green text */
-     font-size: 1em; /* Slightly reduced size */
- }
-
- .success-popup button {
-     background-color: #28a745; /* Green button */
-     color: white;
-     border: none;
-     border-radius: 6px; /* More rounded */
-     cursor: pointer;
-     padding: 8px 12px; /* Slightly reduced padding */
-     margin-top: 10px; /* Slightly reduced margin */
-     transition: background-color 0.2s ease-in-out;
- }
-
- .success-popup button:hover {
-     background-color: #1e7e34;
- }
-
-
- /* HomePage.css - Elegant and Professional Styles with Reduced Padding and Improved Heading */
-
- .home-page {
-     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-     margin: 15px auto; /* Reduced top/bottom margin */
-     padding: 25px; /* Reduced padding */
-     background-color: #fff;
-     border-radius: 12px;
-     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
- }
-
- /* Category Navbar */
- .category-navbar {
-     background-color: #f8f9fa;
-     color: #495057;
-     padding: 10px 0; /* Reduced padding */
-     margin-bottom: 20px; /* Reduced margin */
-     border-bottom: 1px solid #e9ecef;
- }
-
- .category-list {
-     list-style: none;
-     padding: 0;
-     margin: 0 auto;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     max-width: 1200px;
- }
-
- .category-item {
-     padding: 0 15px; /* Reduced padding */
- }
-
- .category-item button {
-     background: none;
-     border: none;
-     color: #495057;
-     font-size: 0.95em; /* Slightly reduced font size */
-     cursor: pointer;
-     transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
-     padding: 6px 10px; /* Reduced button padding */
-     border-radius: 6px;
- }
-
- .category-item button:hover {
-     color: #007bff;
-     background-color: #e9ecef;
- }
-
- .category-item button.active {
-     color: #fff;
-     background-color: #007bff;
- }
-
- /* Product Section */
- .product-section {
-     max-width: 1200px;
-     margin: 0 auto;
-     padding: 15px 0; /* Reduced padding */
- }
-
- .product-section h2 {
-     color: #343a40;
-     margin-bottom: 20px; /* Reduced margin */
-     text-align: center;
-     font-size: 1.8em; /* Slightly reduced font size */
-     font-weight: 600; /* Slightly bolder */
-     letter-spacing: 0.8px; /* Improve readability */
-     text-transform: uppercase; /* Make it stand out */
-     opacity: 0.9; /* Slightly reduce opacity for a subtle effect */
- }
-
- .product-grid {
-     display: grid;
-     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Slightly reduced min width */
-     gap: 25px; /* Reduced gap */
- }
-
- /* Product Card */
- .product-card {
-     background-color: #fff;
-     border: 1px solid #e9ecef;
-     border-radius: 10px;
-     padding: 15px; /* Reduced padding */
-     text-align: center;
-     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-     transition: transform 0.2s ease-in-out;
- }
-
- .product-card:hover {
-     transform: translateY(-3px); /* Reduced lift */
- }
-
- .product-image {
-     max-width: 100%;
-     height: auto;
-     margin-bottom: 10px; /* Reduced margin */
-     border-radius: 8px;
-     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
- }
-
- .product-name {
-     color: #343a40;
-     margin-top: 0;
-     margin-bottom: 8px; /* Reduced margin */
-     font-size: 1.1em; /* Reduced font size */
-     font-weight: 500;
- }
-
- .product-price {
-     color: #28a745;
-     font-weight: bold;
-     margin-bottom: 12px; /* Reduced margin */
-     font-size: 1em; /* Reduced font size */
- }
-
- .product-description {
-     color: #6c757d;
-     font-size: 0.9em; /* Reduced font size */
-     margin-bottom: 15px; /* Reduced margin */
-     line-height: 1.4; /* Slightly tighter line height */
- }
-
- .view-details-button {
-     background-color: #0d62bd;
-     color: rgb(11, 11, 11);
-     border: none;
-     padding: 8px 15px; /* Reduced padding */
-     border-radius: 8px;
-     cursor: pointer;
-     font-size: 0.9em; /* Reduced font size */
-     transition: background-color 0.3s ease-in-out;
- }
-
- .view-details-button:hover {
-     background-color: #0056b3;
- }
-
- /* Loading and Error States */
- .loading-container,
- .error-container {
-     text-align: center;
-     padding: 20px; /* Reduced padding */
-     font-style: italic;
-     color: #6c757d;
-     border-radius: 8px;
-     background-color: #f8f9fa;
-     border: 1px solid #e9ecef;
- }
-
- .error-container {
-     color: #dc3545;
-     font-weight: bold;
- }
-
-/* General Layout */
-.app-container {
-  padding: 0 10px;
-}
-
-.navbar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  flex-wrap: wrap; /* Allows items to wrap on tiny screens */
-}
-
-/* Mobile Specific Adjustments */
-@media (max-width: 768px) {
-  .navbar h1 {
-    font-size: 1.5rem;
-  }
-  
-  .navbar h2 {
-    display: none; /* Hide subtitle on mobile to save space */
-  }
-
-  .auth-buttons {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    margin-top: 10px;
-  }
-
-  /* Make product grids stack vertically */
-  .product-grid {
-    grid-template-columns: 1fr !important; 
-  }
-  
-  /* Cart Table responsive fix */
-  .cart-table-container {
-    overflow-x: auto; /* Adds horizontal scroll to table if it's too wide */
-  }
-}
-
-/* Home Page Layout */
-.home-page {
-  padding: 10px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-/* Category Navbar: Scrollable on Mobile */
-.category-navbar {
-  background: #f8f9fa;
-  padding: 10px 0;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #ddd;
-}
-
-.category-list {
-  display: flex;
-  list-style: none;
-  padding: 0 10px;
-  margin: 0;
-  overflow-x: auto; /* Enable horizontal scroll */
-  white-space: nowrap;
-  -webkit-overflow-scrolling: touch;
-}
-
-.category-list::-webkit-scrollbar {
-  display: none; /* Hide scrollbar for clean look */
-}
-
-.category-item button {
-  background: white;
-  border: 1px solid #ccc;
-  padding: 8px 15px;
-  margin-right: 10px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.category-item button.active-cat {
-  background: #007bff;
-  color: white;
-  border-color: #007bff;
-}
-
-/* Product Grid: Responsive Columns */
-.product-grid {
-  display: grid;
-  gap: 20px;
-  /* Default: 4 columns on Desktop */
-  grid-template-columns: repeat(4, 1fr);
-}
-
-.product-card {
-  border: 1px solid #eee;
-  border-radius: 8px;
-  padding: 15px;
+/* ==========================================================================
+   GearUp — App shell (navbar / layout / footer)
+   Shares the same token system as Home.css. If Home.css is already
+   loaded globally you can drop the @import + :root block below and just
+   keep the .gu-navbar / .gu-footer rules.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
+
+.gu-app {
+  --gu-ink: #14171c;
+  --gu-paper: #f5f6f3;
+  --gu-volt: #c6ff3d;
+  --gu-orange: #ff5a1f;
+  --gu-slate: #6b7280;
+  --gu-line: #e2e4df;
+  --gu-white: #ffffff;
+  --gu-radius: 4px;
+
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: white;
-  transition: transform 0.2s;
+  background: var(--gu-paper);
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--gu-ink);
 }
 
-.product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+.gu-app * {
+  box-sizing: border-box;
 }
 
-.product-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 5px;
-}
+/* ---------- Navbar ---------- */
 
-.product-actions {
-  display: flex;
-  margin-top: auto;
-  gap: 5px;
-}
-
-.add-to-cart-button {
-  background-color: #28a745;
-  color: white;
-  flex: 2;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.view-details-button {
-  background-color: #f0f0f0;
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-/* Responsive Breakpoints */
-
-/* Tablet: 2 or 3 columns */
-@media (max-width: 1024px) {
-  .product-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* Mobile: 1 or 2 columns */
-@media (max-width: 768px) {
-  .product-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 items per row */
-    gap: 10px;
-  }
-  
-  .product-card {
-    padding: 10px;
-  }
-
-  .product-image {
-    height: 150px;
-  }
-
-  .product-name {
-    font-size: 1rem;
-  }
-}
-
-/* Very Small Phones: 1 column */
-@media (max-width: 480px) {
-  .product-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .toast-notification {
-    left: 20px;
-    right: 20px;
-    text-align: center;
-  }
-}
-
-/* Toast Styles */
-.toast-notification {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #28a745;
-  color: white;
-  padding: 15px 25px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  z-index: 1000;
-  font-weight: bold;
-}
-
-/* The container that stays at the top */
-.category-navbar {
-  width: 100%;
-  overflow: hidden; /* Prevent the whole page from shaking */
-  background-color: #fff;
-  border-bottom: 1px solid #eaeaea;
+.gu-navbar {
   position: sticky;
   top: 0;
-  z-index: 1000;
-}
-
-/* The actual list of buttons */
-.category-list {
+  z-index: 100;
   display: flex;
-  flex-direction: row;
-  overflow-x: auto; /* Enable horizontal scrolling */
-  overflow-y: hidden;
-  white-space: nowrap; /* Keep buttons in one line */
-  padding: 10px 5px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 28px;
+  background: var(--gu-ink);
+  border-bottom: 3px solid var(--gu-volt);
+  flex-wrap: wrap;
+}
+
+.gu-navbar-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.gu-logo {
+  font-family: 'Bebas Neue', 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 28px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--gu-paper);
   margin: 0;
-  list-style: none;
-  
-  /* Modern scroll behavior */
-  -webkit-overflow-scrolling: touch; 
-  scroll-snap-type: x mandatory; 
+  line-height: 1;
 }
 
-/* Hide the scrollbar for a cleaner look (optional) */
-.category-list::-webkit-scrollbar {
-  display: none;
+.gu-logo-dot {
+  color: var(--gu-volt);
 }
 
-.category-item {
-  flex: 0 0 auto; /* Prevent buttons from shrinking */
-  scroll-snap-align: start;
-  margin: 0 5px;
+.gu-tagline {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 12.5px;
+  letter-spacing: 0.03em;
+  color: var(--gu-slate);
+  margin: 0;
+  text-transform: uppercase;
 }
 
-.category-item button {
-  padding: 8px 16px;
-  border-radius: 20px;
-  border: 1px solid #ddd;
-  background: #f9f9f9;
+.gu-auth-buttons {
+  display: flex;
+  align-items: center;
+}
+
+/* Buttons reuse the same visual language as the Home page cards */
+
+.gu-navbar .gu-btn {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  border-radius: var(--gu-radius);
+  padding: 10px 18px;
   cursor: pointer;
+  border: 1.5px solid var(--gu-volt);
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.1s ease, opacity 0.15s ease;
+}
+
+.gu-navbar .gu-btn--solid {
+  background: var(--gu-volt);
+  color: var(--gu-ink);
+}
+
+.gu-navbar .gu-btn--solid:hover {
+  background: var(--gu-paper);
+  border-color: var(--gu-paper);
+}
+
+.gu-navbar .gu-btn--ghost {
+  background: transparent;
+  color: var(--gu-paper);
+  border-color: rgba(245, 246, 243, 0.35);
+}
+
+.gu-navbar .gu-btn--ghost:hover {
+  border-color: var(--gu-paper);
+}
+
+.gu-btn:active {
+  transform: scale(0.97);
+}
+
+.gu-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.gu-btn:focus-visible {
+  outline: 2px solid var(--gu-orange);
+  outline-offset: 2px;
+}
+
+/* ---------- Logged-in state ---------- */
+
+.gu-user-nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.gu-cart-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(245, 246, 243, 0.1);
+  border: 1.5px solid var(--gu-paper, #f5f6f3);
+  color: var(--gu-paper, #f5f6f3);
+  border-radius: var(--gu-radius, 4px);
+  padding: 9px 14px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.gu-cart-btn:hover {
+  background: var(--gu-volt, #c6ff3d);
+  border-color: var(--gu-volt, #c6ff3d);
+  color: var(--gu-ink, #14171c);
+}
+
+.gu-cart-btn:active {
+  transform: scale(0.97);
+}
+
+.gu-cart-icon {
   font-size: 14px;
 }
 
-.category-item button:hover {
-  background: #007bff;
-  color: white;
+.gu-username {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gu-paper);
 }
 
+.gu-username-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gu-volt);
+}
+
+/* ---------- Layout / footer ---------- */
+
+.main-content {
+  flex: 1;
+}
+
+.gu-footer {
+  border-top: 1px solid var(--gu-line);
+  padding: 20px 28px;
+  text-align: center;
+}
+
+.gu-footer p {
+  margin: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--gu-slate);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 640px) {
+  .gu-navbar {
+    justify-content: center;
+    text-align: center;
+    padding: 14px 18px;
+  }
+
+  .gu-navbar-brand {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .gu-auth-buttons {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .gu-user-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+/* App.css
+   -----------------------------------------------------------------
+   Contains: navbar/footer/app shell (gu- classes) + the Auth modal
+   shell (gu-modal-*, gu- classes).
+
+   Still legacy / unstyled: the login-form, registration-form,
+   form-group, submit-button, cancel-button, and success-popup rules
+   below belong to Login.js / Registration.js, which haven't been
+   redesigned yet. Send those files next and these get the same
+   GearUp treatment (including the loading state on submit).
+   ----------------------------------------------------------------- */
+
+/* ---------- Auth Modal shell (GearUp) ---------- */
+
+.gu-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(20, 23, 28, 0.72);
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 1000;
+    animation: gu-overlay-in 0.15s ease;
+}
+
+@keyframes gu-overlay-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.gu-modal-content {
+    background-color: var(--gu-paper, #f5f6f3);
+    padding: 34px 30px 28px;
+    border-radius: var(--gu-radius, 4px);
+    box-shadow: 0 20px 48px rgba(20, 23, 28, 0.35);
+    position: relative;
+    width: 400px;
+    max-width: 100%;
+    overflow: hidden;
+    animation: gu-modal-in 0.2s ease;
+}
+
+@keyframes gu-modal-in {
+    from { opacity: 0; transform: translateY(8px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.gu-modal-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gu-volt, #c6ff3d);
+}
+
+.gu-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--gu-slate, #6b7280);
+    transition: color 0.15s ease, transform 0.1s ease;
+    padding: 4px;
+}
+
+.gu-modal-close:hover {
+    color: var(--gu-ink, #14171c);
+    transform: rotate(90deg);
+}
+
+.gu-modal-eyebrow {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gu-orange, #ff5a1f);
+    margin-bottom: 6px;
+}
+
+.gu-modal-toggle {
+    background: none;
+    color: var(--gu-ink, #14171c);
+    border: none;
+    border-top: 1px solid var(--gu-line, #e2e4df);
+    padding: 16px 0 0;
+    margin-top: 18px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--gu-line, #e2e4df);
+    transition: text-decoration-color 0.15s ease;
+}
+
+.gu-modal-toggle:hover {
+    text-decoration-color: var(--gu-orange, #ff5a1f);
+}
+
+/* Login / Registration forms */
+.login-form,
+.registration-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form h2,
+.registration-form h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #343a40;
+    font-size: 1.6em;
+    font-weight: 500;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    color: #495057;
+    font-size: 0.95em;
+    font-weight: 400;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 0.95em;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.login-form button,
+.registration-form button {
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 10px;
+    border: none;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.login-form button:hover,
+.registration-form button:hover {
+    opacity: 0.9;
+}
+
+.submit-button {
+    background-color: #28a745;
+    color: white;
+}
+
+.submit-button:hover {
+    background-color: #1e7e34;
+}
+
+.cancel-button {
+    background-color: #6c757d;
+    color: white;
+    margin-left: 10px;
+}
+
+.cancel-button:hover {
+    background-color: #5a6268;
+}
+
+/* Success popup */
+.success-popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 25px;
+    border: 1px solid #d1e7dd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.success-popup p {
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #155724;
+    font-size: 1em;
+}
+
+.success-popup button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 8px 12px;
+    margin-top: 10px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.success-popup button:hover {
+    background-color: #1e7e34;
+}

@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { fetchUserCart, removeFromCart } from '../services/api';
 import { useNavigate } from 'react-router-dom';
+import './Cart.css';
 
 function Cart() {
     const [cart, setCart] = useState(null);
@@ -58,108 +59,147 @@ function Cart() {
         }
     };
 
-    if (loading) return <div className="cart-page" style={{padding: '40px'}}><p>Loading your gear...</p></div>;
-
     const grandTotal = cart?.cartItems?.reduce((acc, item) => acc + (item.product.price * item.quantity), 0).toFixed(2) || "0.00";
 
     return (
-        <div className="cart-page" style={{ padding: '20px', maxWidth: '1000px', margin: '0 auto' }}>
-            
-            <button 
-                onClick={() => navigate('/')} 
-                style={{ marginBottom: '20px', padding: '8px 16px', backgroundColor: '#6c757d', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
-            >
-                ← Back to Shopping
+        <div className="gu-cart-page">
+            <button onClick={() => navigate('/')} className="gu-btn gu-btn--ghost-ink gu-cart-back">
+                <span aria-hidden="true">←</span> Back to Shopping
             </button>
 
-            <h1>Your Gear Bag</h1>
-            
-            {error ? (
-                <div className="error-container">
-                    <p>{error}</p>
-                    <button onClick={() => window.location.reload()}>Retry</button>
+            <div className="gu-cart-header">
+                <h1 className="gu-cart-title">Your Gear Bag</h1>
+                <div className="gu-cart-stripe" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span><span></span>
                 </div>
-            ) : cart && cart.cartItems && cart.cartItems.length > 0 ? (
-                <div className="cart-items-container">
-                    <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px', border: '1px solid #ddd' }}>
+            </div>
+
+            {loading ? (
+                <div className="gu-cart-table-container">
+                    <table className="gu-cart-table">
                         <thead>
-                            <tr style={{ backgroundColor: '#f8f9fa', borderBottom: '2px solid #333', textAlign: 'left' }}>
-                                <th style={columnStyle}>Product</th>
-                                <th style={columnStyle}>Price</th>
-                                <th style={columnStyle}>Quantity</th>
-                                <th style={columnStyle}>Total</th>
-                                <th style={{ ...columnStyle, borderRight: 'none' }}>Action</th>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {cart.cartItems.map((item) => (
-                                <tr key={item.id} style={{ borderBottom: '1px solid #ddd' }}>
-                                    <td style={cellStyle}><strong>{item.product.name}</strong></td>
-                                    <td style={cellStyle}>${item.product.price.toFixed(2)}</td>
-                                    <td style={cellStyle}>{item.quantity}</td>
-                                    <td style={cellStyle}>${(item.product.price * item.quantity).toFixed(2)}</td>
-                                    <td style={{ ...cellStyle, borderRight: 'none' }}>
-                                        <button 
-                                            onClick={() => handleRemove(item.product.id)} 
-                                            style={{ color: 'white', backgroundColor: '#dc3545', border: 'none', padding: '5px 10px', borderRadius: '4px', cursor: 'pointer' }}
-                                        >
-                                            Remove
-                                        </button>
-                                    </td>
+                            {Array.from({ length: 3 }).map((_, i) => (
+                                <tr key={i}>
+                                    <td><div className="gu-cart-shimmer" style={{ width: '80%' }}></div></td>
+                                    <td><div className="gu-cart-shimmer" style={{ width: '50%' }}></div></td>
+                                    <td><div className="gu-cart-shimmer" style={{ width: '30%' }}></div></td>
+                                    <td><div className="gu-cart-shimmer" style={{ width: '50%' }}></div></td>
+                                    <td><div className="gu-cart-shimmer" style={{ width: '60%' }}></div></td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
+                </div>
+            ) : error ? (
+                <div className="gu-cart-state">
+                    <span className="gu-cart-state-eyebrow">Whistle blown</span>
+                    <p className="gu-cart-state-message">{error}</p>
+                    <button onClick={() => window.location.reload()} className="gu-btn gu-btn--solid-ink">
+                        Retry
+                    </button>
+                </div>
+            ) : cart && cart.cartItems && cart.cartItems.length > 0 ? (
+                <div className="gu-cart-items-container">
+                    <div className="gu-cart-table-container">
+                        <table className="gu-cart-table">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {cart.cartItems.map((item) => (
+                                    <tr key={item.id}>
+                                        <td className="gu-cart-product-name"><strong>{item.product.name}</strong></td>
+                                        <td className="gu-cart-mono">${item.product.price.toFixed(2)}</td>
+                                        <td className="gu-cart-mono">{item.quantity}</td>
+                                        <td className="gu-cart-mono gu-cart-line-total">${(item.product.price * item.quantity).toFixed(2)}</td>
+                                        <td>
+                                            <button
+                                                onClick={() => handleRemove(item.product.id)}
+                                                className="gu-btn gu-btn--danger"
+                                            >
+                                                Remove
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
 
-                    <div style={{ marginTop: '30px', textAlign: 'right', borderTop: '2px solid #eee', paddingTop: '20px' }}>
-                        <h2 style={{ marginBottom: '20px' }}>Grand Total: ${grandTotal}</h2>
-                        <button 
-                            onClick={() => setShowCheckout(true)} // Open Checkout Modal
-                            style={{ padding: '12px 24px', backgroundColor: '#28a745', color: 'white', border: 'none', borderRadius: '5px', fontSize: '16px', cursor: 'pointer' }}
+                    <div className="gu-cart-summary">
+                        <span className="gu-cart-summary-label">Grand total</span>
+                        <h2 className="gu-cart-summary-total">${grandTotal}</h2>
+                        <button
+                            onClick={() => setShowCheckout(true)}
+                            className="gu-btn gu-btn--solid-volt gu-cart-checkout-btn"
                         >
-                            Proceed to Checkout
+                            Proceed to checkout
                         </button>
                     </div>
                 </div>
             ) : (
-                <div style={{ textAlign: 'center', marginTop: '50px' }}>
-                    <p style={{ fontSize: '18px' }}>Your bag is empty. Go get some gear!</p>
+                <div className="gu-cart-state">
+                    <span className="gu-cart-state-eyebrow">Empty bag</span>
+                    <p className="gu-cart-state-message">Your bag is empty. Go get some gear!</p>
+                    <button onClick={() => navigate('/')} className="gu-btn gu-btn--solid-ink">
+                        Browse gear
+                    </button>
                 </div>
             )}
 
             {/* --- CHECKOUT MODAL --- */}
             {showCheckout && (
-                <div style={modalOverlayStyle}>
-                    <div style={modalContentStyle}>
-                        <h2>Finalize Your Order</h2>
-                        <p style={{ color: '#555', marginBottom: '15px' }}>Total Amount: <strong>${grandTotal}</strong></p>
-                        
-                        <div style={{ border: '2px dashed #ccc', padding: '20px', backgroundColor: '#f9f9f9', marginBottom: '15px' }}>
-                            <p style={{ fontWeight: 'bold', marginBottom: '10px' }}>Please pay on this UPI</p>
+                <div className="gu-modal-overlay" onClick={() => setShowCheckout(false)}>
+                    <div className="gu-modal-content gu-checkout-content" onClick={(e) => e.stopPropagation()}>
+                        <div className="gu-modal-bar" aria-hidden="true"></div>
+
+                        <span className="gu-modal-eyebrow">Final step</span>
+                        <h2 className="gu-checkout-title">Finalize Your Order</h2>
+                        <p className="gu-checkout-amount">
+                            Total amount <strong>${grandTotal}</strong>
+                        </p>
+
+                        <div className="gu-checkout-qr-box">
+                            <span className="gu-checkout-qr-label">Please pay on this UPI</span>
                             {/* Placeholder QR Code - Replace the src with your actual QR image link */}
-                            <img 
-                                src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=YourUPILinkHere" 
-                                alt="Payment QR Code" 
-                                style={{ width: '200px', height: '200px' }}
+                            <img
+                                src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=YourUPILinkHere"
+                                alt="Payment QR Code"
+                                className="gu-checkout-qr-img"
                             />
-                            <p style={{ marginTop: '10px', fontSize: '12px', color: '#888' }}>UPI ID: gearup@upi</p>
+                            <span className="gu-checkout-upi">UPI ID: gearup@upi</span>
                         </div>
 
-                        <div style={{ display: 'flex', gap: '10px' }}>
-                            <button 
-                                onClick={() => setShowCheckout(false)} 
-                                style={{ flex: 1, padding: '10px', backgroundColor: '#6c757d', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+                        <div className="gu-checkout-actions">
+                            <button
+                                onClick={() => setShowCheckout(false)}
+                                className="gu-btn gu-btn--ghost-ink gu-checkout-btn"
                             >
                                 Cancel
                             </button>
-                            <button 
+                            <button
                                 onClick={() => {
                                     alert("Thank you! Our team will verify your payment and process the order.");
                                     setShowCheckout(false);
-                                }} 
-                                style={{ flex: 1, padding: '10px', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+                                }}
+                                className="gu-btn gu-btn--solid-ink gu-checkout-btn"
                             >
-                                I have Paid
+                                I have paid
                             </button>
                         </div>
                     </div>
@@ -169,33 +209,4 @@ function Cart() {
     );
 }
 
-// Simple Modal Styles
-const modalOverlayStyle = {
-    position: 'fixed',
-    top: 0, left: 0,
-    width: '100%', height: '100%',
-    backgroundColor: 'rgba(0,0,0,0.7)',
-    display: 'flex', justifyContent: 'center', alignItems: 'center',
-    zIndex: 2000
-};
-
-const modalContentStyle = {
-    backgroundColor: 'white',
-    padding: '30px',
-    borderRadius: '12px',
-    textAlign: 'center',
-    width: '90%',
-    maxWidth: '400px',
-    boxShadow: '0 5px 15px rgba(0,0,0,0.3)'
-};
-const columnStyle = {
-    padding: '12px 10px',
-    borderRight: '1px solid #ddd', // This creates the vertical line
-    fontWeight: 'bold'
-};
-
-const cellStyle = {
-    padding: '15px 10px',
-    borderRight: '1px solid #ddd' // This creates the vertical line
-};
 export default Cart;

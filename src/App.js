@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'; // Added useEffect
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import AuthModal from './components/AuthModal';
 import Home from './components/Home';
-import './App.css'; 
+import './App.css';
 
 import Cart from './components/Cart'; // Don't forget the import
 
@@ -25,7 +25,7 @@ function App() {
         setIsAuthModalOpen(false);
     };
 
-   
+
 
     const handleLogout = () => {
         setIsLoggedIn(false);
@@ -60,20 +60,30 @@ function App() {
         };
 
     return (
-        <div className="app-container">
-            <nav className="navbar">
-                <h1 className="logo">GearUp</h1>
-                <h2>Explore Our Sports Gear !</h2>
-                <div className="auth-buttons">
+        <div className="gu-app">
+            <nav className="gu-navbar">
+                <div className="gu-navbar-brand">
+                    <h1 className="gu-logo">GearUp<span className="gu-logo-dot">.</span></h1>
+                    <h2 className="gu-tagline">Explore Our Sports Gear</h2>
+                </div>
+
+                <div className="gu-auth-buttons">
                     {!isLoggedIn ? (
-                        <button onClick={openAuthModal} className="auth-button">Login / Register</button>
+                        <button onClick={openAuthModal} className="gu-btn gu-btn--solid">
+                            Login / Register
+                        </button>
                     ) : (
-                        <div className="user-nav">
-                            <button onClick={() => navigate('/cart')} className="cart-icon-btn" style={{ marginRight: '15px' }}>
-                                🛒 Cart
+                        <div className="gu-user-nav">
+                            <button onClick={() => navigate('/cart')} className="gu-cart-btn">
+                                <span className="gu-cart-icon" aria-hidden="true">🛒</span> Cart
                             </button>
-                            <span className="username">Welcome, {loggedInUsername}</span>
-                            <button onClick={handleLogout} className="auth-button logout-button">Logout</button>
+                            <span className="gu-username">
+                                <span className="gu-username-eyebrow">Welcome</span>
+                                {loggedInUsername}
+                            </span>
+                            <button onClick={handleLogout} className="gu-btn gu-btn--ghost">
+                                Logout
+                            </button>
                         </div>
                     )}
                 </div>
@@ -90,8 +100,8 @@ function App() {
                     <AuthModal onClose={closeAuthModal} onLoginSuccess={handleLoginSuccess} />
                 )}
             </main>
-            <footer className="app-footer">
-                <p>&copy; {new Date().getFullYear()} GearUp - All Rights Reserved</p>
+            <footer className="gu-footer">
+                <p>&copy; {new Date().getFullYear()} GearUp — All Rights Reserved</p>
             </footer>
         </div>
     );
