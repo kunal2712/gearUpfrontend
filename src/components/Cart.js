@@ -8,7 +8,6 @@ function Cart() {
     const [cart, setCart] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [showCheckout, setShowCheckout] = useState(false); // State for Checkout Modal
     const navigate = useNavigate();
 
     const loadCart = useCallback(async () => {
@@ -145,7 +144,7 @@ function Cart() {
                         <span className="gu-cart-summary-label">Grand total</span>
                         <h2 className="gu-cart-summary-total">${grandTotal}</h2>
                         <button
-                            onClick={() => setShowCheckout(true)}
+                            onClick={() => navigate('/checkout')}
                             className="gu-btn gu-btn--solid-volt gu-cart-checkout-btn"
                         >
                             Proceed to checkout
@@ -162,49 +161,6 @@ function Cart() {
                 </div>
             )}
 
-            {/* --- CHECKOUT MODAL --- */}
-            {showCheckout && (
-                <div className="gu-modal-overlay" onClick={() => setShowCheckout(false)}>
-                    <div className="gu-modal-content gu-checkout-content" onClick={(e) => e.stopPropagation()}>
-                        <div className="gu-modal-bar" aria-hidden="true"></div>
-
-                        <span className="gu-modal-eyebrow">Final step</span>
-                        <h2 className="gu-checkout-title">Finalize Your Order</h2>
-                        <p className="gu-checkout-amount">
-                            Total amount <strong>${grandTotal}</strong>
-                        </p>
-
-                        <div className="gu-checkout-qr-box">
-                            <span className="gu-checkout-qr-label">Please pay on this UPI</span>
-                            {/* Placeholder QR Code - Replace the src with your actual QR image link */}
-                            <img
-                                src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=YourUPILinkHere"
-                                alt="Payment QR Code"
-                                className="gu-checkout-qr-img"
-                            />
-                            <span className="gu-checkout-upi">UPI ID: gearup@upi</span>
-                        </div>
-
-                        <div className="gu-checkout-actions">
-                            <button
-                                onClick={() => setShowCheckout(false)}
-                                className="gu-btn gu-btn--ghost-ink gu-checkout-btn"
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                onClick={() => {
-                                    alert("Thank you! Our team will verify your payment and process the order.");
-                                    setShowCheckout(false);
-                                }}
-                                className="gu-btn gu-btn--solid-ink gu-checkout-btn"
-                            >
-                                I have paid
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
     );
 }

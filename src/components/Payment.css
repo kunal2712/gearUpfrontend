@@ -1,0 +1,294 @@
+/* ==========================================================================
+   GearUp — Payment / Checkout
+   Reuses --gu-* tokens, .gu-btn base, .gu-field/.gu-label/.gu-input,
+   .gu-submit-btn, .gu-spinner and .gu-auth-error from App.css, plus
+   .gu-cart-mono / .gu-cart-shimmer from Cart.css (all loaded globally).
+   ========================================================================== */
+
+.gu-payment-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 28px 20px 72px;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--gu-ink, #14171c);
+}
+
+.gu-payment-back {
+  margin-bottom: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gu-payment-header {
+  margin-bottom: 24px;
+}
+
+.gu-payment-title {
+  font-family: 'Bebas Neue', 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: clamp(28px, 5vw, 38px);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  margin: 0 0 10px;
+  line-height: 1;
+}
+
+.gu-payment-stripe {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 8px;
+}
+
+.gu-payment-stripe span {
+  display: block;
+  height: 100%;
+  width: 22px;
+  background: var(--gu-ink, #14171c);
+  transform: skewX(-24deg);
+}
+
+.gu-payment-stripe span:nth-child(2) { background: var(--gu-orange, #ff5a1f); }
+.gu-payment-stripe span:nth-child(4) { background: var(--gu-volt, #c6ff3d); }
+.gu-payment-stripe span:nth-child(3),
+.gu-payment-stripe span:nth-child(5) { width: 10px; }
+
+.gu-payment-stripe::after {
+  content: '';
+  flex: 1;
+  height: 1.5px;
+  background: var(--gu-line, #e2e4df);
+}
+
+/* ---------- Order summary ---------- */
+
+.gu-payment-summary {
+  border: 1px solid var(--gu-line, #e2e4df);
+  padding: 18px;
+  margin-bottom: 24px;
+}
+
+.gu-payment-summary-label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gu-slate, #6b7280);
+  margin-bottom: 12px;
+}
+
+.gu-payment-summary-list {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gu-payment-summary-list li {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13.5px;
+  color: var(--gu-ink, #14171c);
+}
+
+.gu-payment-summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 12px;
+  border-top: 1px solid var(--gu-line, #e2e4df);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+/* ---------- Form ---------- */
+
+.gu-payment-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.gu-textarea {
+  resize: vertical;
+  font-family: 'Inter', sans-serif;
+}
+
+.gu-payment-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.gu-payment-method-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.gu-payment-method-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1.5px solid var(--gu-line, #e2e4df);
+  border-radius: var(--gu-radius, 4px);
+  padding: 10px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.gu-payment-method-option input {
+  accent-color: var(--gu-ink, #14171c);
+}
+
+.gu-payment-method-option:hover {
+  border-color: var(--gu-ink, #14171c);
+}
+
+.gu-payment-method-option--active {
+  border-color: var(--gu-ink, #14171c);
+  background: rgba(198, 255, 61, 0.15);
+}
+
+/* ---------- Confirm stage ---------- */
+
+.gu-payment-confirm {
+  border: 1.5px dashed var(--gu-ink, #14171c);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.gu-payment-order-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gu-orange, #ff5a1f);
+}
+
+.gu-payment-confirm-amount {
+  font-size: 15px;
+  margin: 0;
+}
+
+.gu-payment-note {
+  font-size: 14px;
+  color: var(--gu-slate, #6b7280);
+  margin: 0;
+}
+
+.gu-payment-qr-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: var(--gu-paper, #f5f6f3);
+  border: 1px solid var(--gu-line, #e2e4df);
+  padding: 18px;
+}
+
+.gu-payment-qr-label {
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.gu-payment-qr-img {
+  width: 170px;
+  height: 170px;
+  background: var(--gu-white, #fff);
+  padding: 6px;
+}
+
+.gu-payment-upi {
+  margin-top: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  color: var(--gu-slate, #6b7280);
+}
+
+/* ---------- Success stage ---------- */
+
+.gu-payment-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 56px 20px;
+  border: 1px solid var(--gu-line, #e2e4df);
+}
+
+.gu-payment-success-check {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--gu-volt, #c6ff3d);
+  color: var(--gu-ink, #14171c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.gu-payment-success-title {
+  font-family: 'Bebas Neue', 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 26px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.gu-payment-success-order {
+  font-size: 13px;
+  color: var(--gu-slate, #6b7280);
+  margin: 4px 0 12px;
+}
+
+/* ---------- Error / empty states ---------- */
+
+.gu-payment-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  padding: 56px 20px;
+  border: 1px dashed var(--gu-line, #e2e4df);
+}
+
+.gu-payment-state-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gu-orange, #ff5a1f);
+}
+
+.gu-payment-state-message {
+  font-size: 15px;
+  color: var(--gu-slate, #6b7280);
+  margin: 0 0 8px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 480px) {
+  .gu-payment-field-row,
+  .gu-payment-method-grid {
+    grid-template-columns: 1fr;
+  }
+}

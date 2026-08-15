@@ -85,4 +85,12 @@ export const removeFromCart = (userId, productId) => {
     return api.delete(`/cart/${userId}/remove/${productId}`);
 };
 
+export const placeOrder = (orderData) => {
+    return api.post('/orders/checkout', orderData);
+};
+
+export const completePayment = (orderId) => {
+    return api.post(`/payments/${orderId}/success`);
+};
+
 export default api;

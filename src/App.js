@@ -5,6 +5,7 @@ import Home from './components/Home';
 import './App.css';
 
 import Cart from './components/Cart'; // Don't forget the import
+import Payment from './components/Payment';
 
 // ... inside <Routes>
 
@@ -95,6 +96,7 @@ function App() {
                     <Route path="/login" element={<AuthModal onClose={closeAuthModal} onLoginSuccess={handleLoginSuccess} />} />
                     <Route path="/" element={<Home openAuthModal={openAuthModal} />} />
                     <Route path="/cart" element={<Cart />} />
+                    <Route path="/checkout" element={<Payment />} />
                 </Routes>
                 {isAuthModalOpen && (
                     <AuthModal onClose={closeAuthModal} onLoginSuccess={handleLoginSuccess} />

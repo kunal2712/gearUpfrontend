@@ -345,119 +345,172 @@
     text-decoration-color: var(--gu-orange, #ff5a1f);
 }
 
-/* Login / Registration forms */
-.login-form,
-.registration-form {
+/* ---------- Login / Registration forms ---------- */
+
+.gu-auth-form {
     display: flex;
     flex-direction: column;
 }
 
-.login-form h2,
-.registration-form h2 {
-    text-align: center;
-    margin-bottom: 25px;
-    color: #343a40;
-    font-size: 1.6em;
-    font-weight: 500;
+.gu-auth-title {
+    font-family: 'Bebas Neue', 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 26px;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    margin: 0 0 18px;
+    color: var(--gu-ink, #14171c);
 }
 
-.form-group {
-    margin-bottom: 15px;
+.gu-auth-error {
+    background: rgba(255, 90, 31, 0.1);
+    border: 1px solid var(--gu-orange, #ff5a1f);
+    color: var(--gu-orange, #ff5a1f);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 12px;
+    border-radius: var(--gu-radius, 4px);
+    margin: 0 0 16px;
 }
 
-.form-group label {
+.gu-field {
+    margin-bottom: 16px;
+}
+
+.gu-label {
     display: block;
     margin-bottom: 6px;
-    color: #495057;
-    font-size: 0.95em;
-    font-weight: 400;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gu-slate, #6b7280);
 }
 
-.form-group input[type="text"],
-.form-group input[type="password"],
-.form-group input[type="email"] {
+.gu-input {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ced4da;
-    border-radius: 6px;
-    font-size: 0.95em;
+    padding: 11px 12px;
+    border: 1.5px solid var(--gu-line, #e2e4df);
+    border-radius: var(--gu-radius, 4px);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--gu-ink, #14171c);
+    background: var(--gu-paper, #f5f6f3);
     box-sizing: border-box;
-    transition: border-color 0.2s ease-in-out;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
 }
 
-.form-group input:focus {
-    border-color: #007bff;
+.gu-input:focus {
     outline: none;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    border-color: var(--gu-ink, #14171c);
+    background: var(--gu-white, #fff);
 }
 
-.login-form button,
-.registration-form button {
-    padding: 10px 15px;
-    border-radius: 8px;
+.gu-input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.gu-submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    background: var(--gu-ink, #14171c);
+    color: var(--gu-volt, #c6ff3d);
+    border: 1.5px solid var(--gu-ink, #14171c);
+    border-radius: var(--gu-radius, 4px);
+    padding: 12px 15px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
     cursor: pointer;
-    font-size: 1em;
-    margin-top: 10px;
+    margin-top: 6px;
+    transition: background-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+}
+
+.gu-submit-btn:hover:not(:disabled) {
+    background: var(--gu-volt, #c6ff3d);
+    color: var(--gu-ink, #14171c);
+}
+
+.gu-submit-btn:disabled {
+    opacity: 0.75;
+    cursor: not-allowed;
+}
+
+.gu-cancel-btn {
+    width: 100%;
+    background: transparent;
+    color: var(--gu-slate, #6b7280);
     border: none;
-    transition: opacity 0.2s ease-in-out;
+    padding: 10px 15px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: color 0.15s ease;
 }
 
-.login-form button:hover,
-.registration-form button:hover {
-    opacity: 0.9;
+.gu-cancel-btn:hover:not(:disabled) {
+    color: var(--gu-ink, #14171c);
 }
 
-.submit-button {
-    background-color: #28a745;
-    color: white;
+.gu-cancel-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
-.submit-button:hover {
-    background-color: #1e7e34;
+/* ---------- Loading spinner (used on submit buttons) ---------- */
+
+.gu-spinner {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid rgba(198, 255, 61, 0.35);
+    border-top-color: var(--gu-volt, #c6ff3d);
+    animation: gu-spin 0.7s linear infinite;
+    flex: 0 0 auto;
 }
 
-.cancel-button {
-    background-color: #6c757d;
-    color: white;
-    margin-left: 10px;
+@keyframes gu-spin {
+    to { transform: rotate(360deg); }
 }
 
-.cancel-button:hover {
-    background-color: #5a6268;
+@media (prefers-reduced-motion: reduce) {
+    .gu-spinner {
+        animation: none;
+    }
 }
 
-/* Success popup */
-.success-popup {
+/* ---------- Success popup (Registration) ---------- */
+
+.gu-success-popup {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #fff;
-    padding: 25px;
-    border: 1px solid #d1e7dd;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--gu-white, #fff);
+    padding: 26px;
+    border: 1.5px solid var(--gu-ink, #14171c);
+    border-radius: var(--gu-radius, 4px);
+    box-shadow: 0 16px 32px rgba(20, 23, 28, 0.3);
     text-align: center;
+    width: 85%;
 }
 
-.success-popup p {
-    margin-bottom: 15px;
-    font-weight: bold;
-    color: #155724;
-    font-size: 1em;
-}
-
-.success-popup button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    padding: 8px 12px;
-    margin-top: 10px;
-    transition: background-color 0.2s ease-in-out;
-}
-
-.success-popup button:hover {
-    background-color: #1e7e34;
+.gu-success-popup p {
+    margin: 0 0 16px;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--gu-ink, #14171c);
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
 }
