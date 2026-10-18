@@ -337,69 +337,91 @@
 
 
 
-/* AI recommendation section */
+
+/* ---------- AI Product Recommendations ---------- */
+
 .gu-recommended-section {
-    grid-column: 1 / -1;
-    min-width: 0;
-    width: 100%;
-    margin-top: 16px;
+  width: 100%;
+  min-width: 0;
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 2px solid var(--gu-line, #e2e4df);
+  box-sizing: border-box;
 }
 
 .gu-recommended-section .gu-section-heading {
-    margin-bottom: 16px;
+  margin-bottom: 18px;
+}
+
+.gu-recommended-section .gu-section-title {
+  margin: 0 0 10px;
+  font-family: 'Bebas Neue', 'Inter', sans-serif;
+  font-size: clamp(25px, 4vw, 32px);
+  font-weight: 400;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--gu-ink, #14171c);
 }
 
 .gu-recommended-grid {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(0, 1fr);
-    grid-template-rows: auto;
-    gap: 16px;
-    width: 100%;
-    min-width: 0;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(220px, 260px);
+  grid-template-rows: auto;
+  gap: 18px;
+
+  width: 100%;
+  min-width: 0;
+  padding: 4px 4px 14px;
+  box-sizing: border-box;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* Keep recommendation cards consistent with landing page cards */
+/* Use the same card structure and visual classes as Home */
 .gu-recommended-grid .gu-card {
-    min-width: 0;
-    width: 100%;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  scroll-snap-align: start;
+}
+
+.gu-recommended-grid .gu-card-image-wrap {
+  min-width: 0;
 }
 
 .gu-recommended-grid .gu-card-image img {
-    max-width: 100%;
+  max-width: 100%;
+  object-fit: contain;
 }
 
 .gu-recommended-grid .gu-product-name,
 .gu-recommended-grid .gu-product-description {
-    overflow-wrap: anywhere;
+  overflow-wrap: anywhere;
 }
 
-/* Modal recommendations: horizontally scroll if space is limited */
-.gu-detail-recommendations {
-    grid-column: 1 / -1;
-    width: 100%;
-    min-width: 0;
-    max-height: 300px;
-    overflow-x: auto;
-    overflow-y: auto;
-    box-sizing: border-box;
-    padding-top: 12px;
+.gu-recommended-grid .gu-card-actions {
+  display: flex;
+  gap: 8px;
 }
 
-.gu-detail-recommendations .gu-recommended-grid {
-    grid-auto-columns: minmax(180px, 240px);
-    grid-auto-flow: column;
-    grid-template-columns: none;
-    overflow-x: auto;
-    padding-bottom: 10px;
+.gu-recommended-grid .gu-card-actions .gu-btn {
+  min-width: 0;
 }
 
+/* Mobile */
 @media (max-width: 600px) {
-    .gu-detail-recommendations {
-        max-height: 260px;
-    }
+  .gu-recommended-section {
+    margin-top: 28px;
+    padding-top: 20px;
+  }
 
-    .gu-detail-recommendations .gu-recommended-grid {
-        grid-auto-columns: minmax(160px, 75%);
-    }
+  .gu-recommended-grid {
+    grid-auto-columns: minmax(170px, 75%);
+    gap: 12px;
+  }
 }
