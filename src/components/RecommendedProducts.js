@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import { fetchRecommendations } from "../api/productApi";
+import { fetchRecommendations }  from '../services/api';;
 
 const RecommendedProducts = ({ productId, excludeIds = [] }) => {
     const [products, setProducts] = useState([]);
