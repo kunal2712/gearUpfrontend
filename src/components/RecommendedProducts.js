@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { fetchRecommendations } from '../services/api';
-
+import ProductCard from './ProductCard';
 const RecommendedProducts = ({
     productId,
     excludeIds = [],
@@ -80,45 +80,17 @@ const RecommendedProducts = ({
             </div>
 
             <div className="gu-recommended-grid">
-                {products.map(prod => (
-                    <div key={prod.id} className="gu-card">
-                        <div className="gu-card-image-wrap">
-                            <div className="gu-tag">
-                                <span className="gu-tag-currency">$</span>
-                                {Number(prod.price).toFixed(2)}
-                            </div>
-
-                            <div className="gu-card-image">
-                                <img src={prod.imageUrl} alt={prod.name} />
-                            </div>
-                        </div>
-
-                        <div className="gu-card-info">
-                            <h3 className="gu-product-name">{prod.name}</h3>
-
-                            <p className="gu-product-description">
-                                {prod.description}
-                            </p>
-
-                            <div className="gu-card-actions">
-                                <button
-                                    className="gu-btn gu-btn--ghost"
-                                    onClick={() => onViewDetails?.(prod)}
-                                >
-                                    Details
-                                </button>
-
-                                <button
-                                    className="gu-btn gu-btn--solid"
-                                    onClick={() => onAddToCart?.(prod.id)}
-                                >
-                                    Add to cart
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                {products.map((product) => (
+                    <ProductCard
+                        key={product.id}
+                        product={product}
+                        onViewDetails={onViewDetails}
+                        onAddToCart={onAddToCart}
+                    />
                 ))}
             </div>
+
+            
         </section>
     );
 };
