@@ -2,6 +2,8 @@ import axios from 'axios';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
+
+
 // 1. Create a centralized Axios instance
 const api = axios.create({
     baseURL: API_BASE_URL,
@@ -92,5 +94,13 @@ export const placeOrder = (orderData) => {
 export const completePayment = (orderId) => {
     return api.post(`/payments/${orderId}/success`);
 };
+
+
+export const fetchRecommendations = (productId, limit = 5) => {
+    return api.get(`/products/${productId}/recommendations`, {
+        params: { limit }
+    });
+};
+
 
 export default api;
