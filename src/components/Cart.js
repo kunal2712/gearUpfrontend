@@ -1,6 +1,7 @@
 // Cart.js
 import React, { useEffect, useState, useCallback } from 'react';
 import { fetchUserCart, removeFromCart } from '../services/api';
+import RecommendedProducts from '../components/RecommendedProducts';
 import { useNavigate } from 'react-router-dom';
 import './Cart.css';
 
@@ -150,6 +151,12 @@ function Cart() {
                             Proceed to checkout
                         </button>
                     </div>
+                    
+                    <RecommendedProducts
+                        productId={cart.cartItems[0].product.id}
+                        excludeIds={cart.cartItems.map(item => item.product.id)}
+                    />
+
                 </div>
             ) : (
                 <div className="gu-cart-state">

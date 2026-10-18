@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchCategories, fetchProducts, fetchProductsByCategory, addToCart } from '../services/api';
 import './Home.css';
+import RecommendedProducts from '../components/RecommendedProducts';
 
 function Home({ openAuthModal }) {
     const [categories, setCategories] = useState([]);
@@ -239,7 +240,10 @@ function Home({ openAuthModal }) {
                             <div className="gu-detail-info">
                                 <span className="gu-modal-eyebrow">Gear details</span>
                                 <h3 className="gu-detail-name">{selectedProduct.name}</h3>
-                                <p className="gu-detail-description">{selectedProduct.description}</p>
+                                <p className="gu-detail-description">{selectedProduct.description}
+                                </p>
+
+                                <RecommendedProducts productId={selectedProduct.id} />
 
                                 <button
                                     className="gu-btn gu-btn--solid gu-detail-add"
