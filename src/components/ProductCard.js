@@ -8,18 +8,21 @@ function ProductCard({
 }) {
     if (!product) return null;
 
+    const price = Number(product.price);
+
     return (
         <article className="gu-card">
             <div className="gu-card-image-wrap">
                 <div className="gu-tag">
                     <span className="gu-tag-currency">$</span>
-                    {Number(product.price).toFixed(2)}
+                    {Number.isFinite(price) ? price.toFixed(2) : '0.00'}
                 </div>
 
                 <div className="gu-card-image">
                     <img
                         src={product.imageUrl}
-                        alt={product.name}
+                        alt={product.name || 'Product image'}
+                        loading="lazy"
                     />
                 </div>
             </div>

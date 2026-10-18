@@ -13,6 +13,8 @@ function Cart() {
     const [cart, setCart] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [selectedProduct, setSelectedProduct] = useState(null);
+
     const navigate = useNavigate();
 
     const loadCart = useCallback(async () => {
@@ -35,6 +37,7 @@ function Cart() {
             }
 
             setLoading(true);
+
             const response = await fetchUserCart(userId);
             setCart(response.data);
             setError(null);
@@ -50,13 +53,37 @@ function Cart() {
         loadCart();
     }, [loadCart]);
 
+    useEffect(() => {
+        if (!selectedProduct) return;
+
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                setSelectedProduct(null);
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+        document.body.style.overflow = 'hidden';
+
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+            document.body.style.overflow = '';
+        };
+    }, [selectedProduct]);
+
     const handleRemove = async (productId) => {
         const rawUser = localStorage.getItem('user');
+
         if (!rawUser) return;
 
         try {
             const savedUser = JSON.parse(rawUser);
             const userId = savedUser.id || savedUser.userId;
+
+            if (!userId) {
+                alert('Session invalid. Please log in again.');
+                return;
+            }
 
             await removeFromCart(userId, productId);
             await loadCart();
@@ -112,12 +139,13 @@ function Cart() {
 
             <div className="gu-cart-header">
                 <h1 className="gu-cart-title">Your Gear Bag</h1>
+
                 <div className="gu-cart-stripe" aria-hidden="true">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                    <span />
                 </div>
             </div>
 
@@ -133,6 +161,7 @@ function Cart() {
                                 <th>Action</th>
                             </tr>
                         </thead>
+
                         <tbody>
                             {Array.from({ length: 3 }).map((_, i) => (
                                 <tr key={i}>
@@ -176,9 +205,11 @@ function Cart() {
                     <span className="gu-cart-state-eyebrow">
                         Whistle blown
                     </span>
+
                     <p className="gu-cart-state-message">{error}</p>
+
                     <button
-                        onClick={() => window.location.reload()}
+                        onClick={loadCart}
                         className="gu-btn gu-btn--solid-ink"
                     >
                         Retry
@@ -197,25 +228,41 @@ function Cart() {
                                     <th>Action</th>
                                 </tr>
                             </thead>
+
                             <tbody>
                                 {cart.cartItems.map((item) => (
                                     <tr key={item.id}>
                                         <td className="gu-cart-product-name">
-                                            <strong>{item.product.name}</strong>
+                                            <strong>
+                                                {item.product.name}
+                                            </strong>
                                         </td>
+
                                         <td className="gu-cart-mono">
-                                            ${Number(item.product.price).toFixed(2)}
+                                            $
+                                            {Number(
+                                                item.product.price
+                                            ).toFixed(2)}
                                         </td>
+
                                         <td className="gu-cart-mono">
                                             {item.quantity}
                                         </td>
+
                                         <td className="gu-cart-mono gu-cart-line-total">
-                                            ${(Number(item.product.price) * item.quantity).toFixed(2)}
+                                            $
+                                            {(
+                                                Number(item.product.price) *
+                                                item.quantity
+                                            ).toFixed(2)}
                                         </td>
+
                                         <td>
                                             <button
                                                 onClick={() =>
-                                                    handleRemove(item.product.id)
+                                                    handleRemove(
+                                                        item.product.id
+                                                    )
                                                 }
                                                 className="gu-btn gu-btn--danger"
                                             >
@@ -232,9 +279,11 @@ function Cart() {
                         <span className="gu-cart-summary-label">
                             Grand total
                         </span>
+
                         <h2 className="gu-cart-summary-total">
                             ${grandTotal}
                         </h2>
+
                         <button
                             onClick={() => navigate('/checkout')}
                             className="gu-btn gu-btn--solid-volt gu-cart-checkout-btn"
@@ -249,25 +298,98 @@ function Cart() {
                             (item) => item.product.id
                         )}
                         onAddToCart={handleAddRecommendedToCart}
-                        onViewDetails={(product) => {
-                            navigate(`/products/${product.id}`);
-                        }}
+                        onViewDetails={setSelectedProduct}
                     />
                 </div>
             ) : (
-                <div className="gu-cart-state">
-                    <span className="gu-cart-state-eyebrow">
-                        Empty bag
-                    </span>
-                    <p className="gu-cart-state-message">
-                        Your bag is empty. Go get some gear!
-                    </p>
-                    <button
-                        onClick={() => navigate('/')}
-                        className="gu-btn gu-btn--solid-ink"
-                    >
-                        Browse gear
-                    </button>
+                <>
+                    <div className="gu-cart-state">
+                        <span className="gu-cart-state-eyebrow">
+                            Empty bag
+                        </span>
+
+                        <p className="gu-cart-state-message">
+                            Your bag is empty. Go get some gear!
+                        </p>
+
+                        <button
+                            onClick={() => navigate('/')}
+                            className="gu-btn gu-btn--solid-ink"
+                        >
+                            Browse gear
+                        </button>
+                    </div>
+
+                    <RecommendedProducts
+                        productId={null}
+                        excludeIds={[]}
+                        onAddToCart={handleAddRecommendedToCart}
+                        onViewDetails={setSelectedProduct}
+                    />
+                </>
+            )}
+
+            {selectedProduct && (
+                <div
+                    className="gu-detail-overlay"
+                    onClick={() => setSelectedProduct(null)}
+                >
+                    <div className="gu-detail-stage">
+                        <div
+                            className="gu-detail-card"
+                            onClick={(event) => event.stopPropagation()}
+                            role="dialog"
+                            aria-modal="true"
+                            aria-label={selectedProduct.name}
+                        >
+                            <button
+                                className="gu-detail-close"
+                                onClick={() => setSelectedProduct(null)}
+                                aria-label="Close details"
+                            >
+                                &times;
+                            </button>
+
+                            <div className="gu-detail-image-wrap">
+                                <div className="gu-tag gu-detail-tag">
+                                    <span className="gu-tag-currency">$</span>
+                                    {Number(selectedProduct.price).toFixed(2)}
+                                </div>
+
+                                <div className="gu-detail-image">
+                                    <img
+                                        src={selectedProduct.imageUrl}
+                                        alt={selectedProduct.name}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="gu-detail-info">
+                                <span className="gu-modal-eyebrow">
+                                    Gear details
+                                </span>
+
+                                <h3 className="gu-detail-name">
+                                    {selectedProduct.name}
+                                </h3>
+
+                                <p className="gu-detail-description">
+                                    {selectedProduct.description}
+                                </p>
+
+                                <button
+                                    className="gu-btn gu-btn--solid gu-detail-add"
+                                    onClick={() =>
+                                        handleAddRecommendedToCart(
+                                            selectedProduct.id
+                                        )
+                                    }
+                                >
+                                    Add to cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             )}
         </div>

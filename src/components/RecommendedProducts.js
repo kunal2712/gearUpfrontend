@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchRecommendations } from '../services/api';
 import ProductCard from './ProductCard';
+
 const RecommendedProducts = ({
     productId,
     excludeIds = [],
@@ -9,13 +10,15 @@ const RecommendedProducts = ({
     onAddToCart
 }) => {
     const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
-    // Stable dependency even if the parent creates a new array on each render.
-    const excludeKey = excludeIds.map(Number).sort((a, b) => a - b).join(',');
+    const excludeKey = excludeIds
+        .map(Number)
+        .sort((a, b) => a - b)
+        .join(',');
 
     useEffect(() => {
-        if (!productId) {
+        if (productId == null) {
             setProducts([]);
             setLoading(false);
             return;
@@ -28,23 +31,42 @@ const RecommendedProducts = ({
 
             try {
                 const response = await fetchRecommendations(productId, 3);
+
+                const recommendedProducts = Array.isArray(response.data)
+                    ? response.data
+                    : Array.isArray(response.data?.content)
+                        ? response.data.content
+                        : [];
+
                 const excluded = new Set([
                     Number(productId),
-                    ...excludeKey.split(',').filter(Boolean).map(Number)
+                    ...excludeKey
+                        .split(',')
+                        .filter(Boolean)
+                        .map(Number)
                 ]);
 
                 if (!cancelled) {
                     setProducts(
-                        (response.data || []).filter(
-                            product => !excluded.has(Number(product.id))
+                        recommendedProducts.filter(
+                            (product) =>
+                                !excluded.has(Number(product.id))
                         )
                     );
                 }
             } catch (error) {
-                console.error('Failed to load recommendations:', error);
-                if (!cancelled) setProducts([]);
+                console.error(
+                    'Failed to load recommendations:',
+                    error
+                );
+
+                if (!cancelled) {
+                    setProducts([]);
+                }
             } finally {
-                if (!cancelled) setLoading(false);
+                if (!cancelled) {
+                    setLoading(false);
+                }
             }
         };
 
@@ -58,24 +80,42 @@ const RecommendedProducts = ({
     if (loading) {
         return (
             <section className="gu-recommended-section">
-                <h2 className="gu-section-title">You may also like</h2>
+                <div className="gu-section-heading">
+                    <h2 className="gu-section-title">
+                        You may also like
+                    </h2>
+
+                    <div className="gu-stripe" aria-hidden="true">
+                        <span />
+                        <span />
+                        <span />
+                        <span />
+                        <span />
+                    </div>
+                </div>
+
                 <p>Finding products for you...</p>
             </section>
         );
     }
 
-    if (products.length === 0) return null;
+    if (products.length === 0) {
+        return null;
+    }
 
     return (
         <section className="gu-recommended-section">
             <div className="gu-section-heading">
-                <h2 className="gu-section-title">You may also like</h2>
+                <h2 className="gu-section-title">
+                    You may also like
+                </h2>
+
                 <div className="gu-stripe" aria-hidden="true">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                    <span />
                 </div>
             </div>
 
@@ -89,8 +129,6 @@ const RecommendedProducts = ({
                     />
                 ))}
             </div>
-
-            
         </section>
     );
 };
