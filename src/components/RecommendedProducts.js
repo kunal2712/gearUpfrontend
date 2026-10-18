@@ -19,7 +19,7 @@ const RecommendedProducts = ({ productId, excludeIds = [] }) => {
             setLoading(true);
 
             try {
-                const response = await fetchRecommendations(productId, 5);
+                const response = await fetchRecommendations(productId, 3);
 
                 if (!cancelled) {
                     const excluded = new Set([
