@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchCategories, fetchProducts, fetchProductsByCategory, addToCart } from '../services/api';
 import './Home.css';
-import RecommendedProducts from '../components/RecommendedProducts';
+// import RecommendedProducts from '../components/RecommendedProducts';
 
 function Home({ openAuthModal }) {
     const [categories, setCategories] = useState([]);
