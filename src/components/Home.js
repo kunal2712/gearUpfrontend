@@ -243,7 +243,7 @@ function Home({ openAuthModal }) {
                                 <p className="gu-detail-description">{selectedProduct.description}
                                 </p>
 
-                                {/* <RecommendedProducts productId={selectedProduct.id} /> */}
+                                
 
                                 <button
                                     className="gu-btn gu-btn--solid gu-detail-add"

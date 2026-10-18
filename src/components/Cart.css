@@ -334,3 +334,72 @@
     width: 100%;
   }
 }
+
+
+
+/* AI recommendation section */
+.gu-recommended-section {
+    grid-column: 1 / -1;
+    min-width: 0;
+    width: 100%;
+    margin-top: 16px;
+}
+
+.gu-recommended-section .gu-section-heading {
+    margin-bottom: 16px;
+}
+
+.gu-recommended-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-template-rows: auto;
+    gap: 16px;
+    width: 100%;
+    min-width: 0;
+}
+
+/* Keep recommendation cards consistent with landing page cards */
+.gu-recommended-grid .gu-card {
+    min-width: 0;
+    width: 100%;
+}
+
+.gu-recommended-grid .gu-card-image img {
+    max-width: 100%;
+}
+
+.gu-recommended-grid .gu-product-name,
+.gu-recommended-grid .gu-product-description {
+    overflow-wrap: anywhere;
+}
+
+/* Modal recommendations: horizontally scroll if space is limited */
+.gu-detail-recommendations {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-width: 0;
+    max-height: 300px;
+    overflow-x: auto;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding-top: 12px;
+}
+
+.gu-detail-recommendations .gu-recommended-grid {
+    grid-auto-columns: minmax(180px, 240px);
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+@media (max-width: 600px) {
+    .gu-detail-recommendations {
+        max-height: 260px;
+    }
+
+    .gu-detail-recommendations .gu-recommended-grid {
+        grid-auto-columns: minmax(160px, 75%);
+    }
+}

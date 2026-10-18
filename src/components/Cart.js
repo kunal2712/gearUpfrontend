@@ -152,10 +152,13 @@ function Cart() {
                         </button>
                     </div>
                     
-                    <RecommendedProducts
-                        productId={cart.cartItems[0].product.id}
-                        excludeIds={cart.cartItems.map(item => item.product.id)}
-                    />
+                  <div className="gu-detail-recommendations">
+                        <RecommendedProducts
+                            productId={selectedProduct.id}
+                            onViewDetails={setSelectedProduct}
+                            onAddToCart={handleAddToCart}
+                        />
+                 </div>
 
                 </div>
             ) : (

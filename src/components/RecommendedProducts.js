@@ -1,10 +1,18 @@
 
-import React, { useEffect, useState } from "react";
-import { fetchRecommendations }  from '../services/api';;
+import React, { useEffect, useState } from 'react';
+import { fetchRecommendations } from '../services/api';
 
-const RecommendedProducts = ({ productId, excludeIds = [] }) => {
+const RecommendedProducts = ({
+    productId,
+    excludeIds = [],
+    onViewDetails,
+    onAddToCart
+}) => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    // Stable dependency even if the parent creates a new array on each render.
+    const excludeKey = excludeIds.map(Number).sort((a, b) => a - b).join(',');
 
     useEffect(() => {
         if (!productId) {
@@ -20,21 +28,20 @@ const RecommendedProducts = ({ productId, excludeIds = [] }) => {
 
             try {
                 const response = await fetchRecommendations(productId, 3);
+                const excluded = new Set([
+                    Number(productId),
+                    ...excludeKey.split(',').filter(Boolean).map(Number)
+                ]);
 
                 if (!cancelled) {
-                    const excluded = new Set([
-                        Number(productId),
-                        ...excludeIds.map(Number)
-                    ]);
-
                     setProducts(
-                        response.data.filter(
+                        (response.data || []).filter(
                             product => !excluded.has(Number(product.id))
                         )
                     );
                 }
             } catch (error) {
-                console.error("Failed to load recommendations:", error);
+                console.error('Failed to load recommendations:', error);
                 if (!cancelled) setProducts([]);
             } finally {
                 if (!cancelled) setLoading(false);
@@ -46,30 +53,70 @@ const RecommendedProducts = ({ productId, excludeIds = [] }) => {
         return () => {
             cancelled = true;
         };
-    }, [productId, excludeIds]);
+    }, [productId, excludeKey]);
 
-    if (loading) return <p>Finding products for you...</p>;
+    if (loading) {
+        return (
+            <section className="gu-recommended-section">
+                <h2 className="gu-section-title">You may also like</h2>
+                <p>Finding products for you...</p>
+            </section>
+        );
+    }
+
     if (products.length === 0) return null;
 
     return (
-        <section className="recommended-products">
-            <h2>You may also like</h2>
+        <section className="gu-recommended-section">
+            <div className="gu-section-heading">
+                <h2 className="gu-section-title">You may also like</h2>
+                <div className="gu-stripe" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
 
-            <div className="recommended-products-grid">
-                {products.map(product => (
-                    <article
-                        className="recommended-product-card"
-                        key={product.id}
-                    >
-                        <img
-                            src={product.imageUrl}
-                            alt={product.name}
-                        />
+            <div className="gu-recommended-grid">
+                {products.map(prod => (
+                    <div key={prod.id} className="gu-card">
+                        <div className="gu-card-image-wrap">
+                            <div className="gu-tag">
+                                <span className="gu-tag-currency">$</span>
+                                {Number(prod.price).toFixed(2)}
+                            </div>
 
-                        <h3>{product.name}</h3>
+                            <div className="gu-card-image">
+                                <img src={prod.imageUrl} alt={prod.name} />
+                            </div>
+                        </div>
 
-                        <p>₹{Number(product.price).toFixed(2)}</p>
-                    </article>
+                        <div className="gu-card-info">
+                            <h3 className="gu-product-name">{prod.name}</h3>
+
+                            <p className="gu-product-description">
+                                {prod.description}
+                            </p>
+
+                            <div className="gu-card-actions">
+                                <button
+                                    className="gu-btn gu-btn--ghost"
+                                    onClick={() => onViewDetails?.(prod)}
+                                >
+                                    Details
+                                </button>
+
+                                <button
+                                    className="gu-btn gu-btn--solid"
+                                    onClick={() => onAddToCart?.(prod.id)}
+                                >
+                                    Add to cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 ))}
             </div>
         </section>
